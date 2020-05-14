@@ -1,0 +1,35 @@
+.App {
+  margin: 0px auto;
+  border: 1px solid #EEE;
+  background-color: white;
+  box-shadow: 10px 5px 50px 30px #ebebeb;
+}
+
+.App .Navbar {
+  padding: 10px 5px;
+  display: flex;
+  border: 1px solid #bebebe;
+}
+
+.App .Footer {
+  font-family: 'Helvetica Neue',
+  'Helvetica',
+  'Arial',
+  sans-serif;
+  font-weight: normal;
+  font-size: 15px;
+  display: flex;
+  padding: 0px 10px;
+  opacity: 0.5;
+}
+
+.App .Footer .Filter {
+  flex-grow: 1;
+  text-align: center;
+  padding: 15px 0px;
+}
+
+.App .Footer .Filter span {
+  margin: 0 5px;
+}
+

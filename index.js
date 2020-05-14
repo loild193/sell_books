@@ -2,13 +2,21 @@ const express = require('express');
 const app = express();
 const port = 9000;
 
+const cors = require('cors');
+
+const userRoute = require('./router/user.route');
+const authRoute = require('./router/auth.route');
+
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/books', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('MONGO_URL=mongodb://localhost/books', { useNewUrlParser: true, useUnifiedTopology: true });
 
-const Book = require('./models/book.model');
+app.use(express.json())
 
-Book.find().then((book) => console.log(book));
+// allow sharing info between back and frontend
+app.use(cors());
 
+app.use('/users', userRoute);
+app.use('/auth', authRoute);
 
 app.get('/', (req, res) => res.send('Hello World!'));
 
