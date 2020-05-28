@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Label, Input, Container, Row, Col } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Container, Row, Col, Alert } from 'reactstrap';
+import {
+  withRouter,
+  Route,
+  Redirect,
+} from "react-router-dom";
 const axios = require('axios');
 
 
@@ -8,7 +13,9 @@ class Login extends Component {
     super(props);
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      errors: [],
+      redirect: false
     };
 
     this.Submit = this.Submit.bind(this);
@@ -21,11 +28,31 @@ class Login extends Component {
       email: this.state.email,
       password: this.state.password
     })
-    .then(function (response) {
+    .then((response) => {
       console.log(response);
+      if (response.status === 200) {
+        this.setState({
+          redirect: true
+        })
+      }
     })
-    .catch(function (error) {
-      console.log(error);
+    .catch((error) => {
+      const { errors } = this.state;
+      if (errors.indexOf('Missing field!') === -1 || 
+          errors.indexOf('User does not exist!') === -1 ||
+          errors.indexOf('Wrong password!') === -1) {
+        this.setState({
+          errors: [
+            ...errors,
+            error.response.data.message
+          ]
+        });
+      }
+      else {
+        this.setState({
+          errors: []
+        });
+      }
     });
   };
 
@@ -42,12 +69,24 @@ class Login extends Component {
   }
 
   render(){
+    const { errors, redirect } = this.state;
+
     return (
       <Container>
+        <Route>
+          {
+            redirect === true ? <Redirect to="/" /> : <Redirect to="/login/" />
+          }
+        </Route>
         <Row>
           <Col md={{ size: 6, offset: 3 }} >
             <Form>
               <FormGroup>
+                { errors.map((error, key) => 
+                  <Alert key={key} color="danger">
+                    {error}
+                  </Alert>)
+                }
                 <Label for="exampleEmail">Email</Label>
                 <Input 
                   type="email" 
@@ -76,4 +115,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withRouter(Login);
