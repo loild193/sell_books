@@ -26,7 +26,6 @@ class App extends Component {
   componentDidMount() {
     axios.get('http://localhost:9000')
       .then((res) => {
-        console.log(res);
         if (res.data.message)
           this.setState({
             redirect: true

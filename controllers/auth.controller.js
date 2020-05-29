@@ -25,10 +25,10 @@ module.exports.login = async function(req, res){
    });
   }
 
-
-  var token = jwt.sign({id: user[0].ObjectId}, process.env.PRIVATE_KEY);
-  axios.defaults.headers.common['Authorization'] = token;
-  return res.status(200).send({
-    message: 'Login success'
+  // login success -> attach jwt token to all request
+  const token = jwt.sign({id: user[0].ObjectId}, process.env.PRIVATE_KEY);
+  // axios.defaults.headers.common['Authorization'] = token;
+  return res.status(200).json({
+    token
   });
 }

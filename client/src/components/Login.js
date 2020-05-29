@@ -29,14 +29,15 @@ class Login extends Component {
       password: this.state.password
     })
     .then((response) => {
-      console.log(response);
       if (response.status === 200) {
+        sessionStorage.setItem('token', response.data.token);
         this.setState({
           redirect: true
         })
       }
     })
     .catch((error) => {
+      console.log(error)
       const { errors } = this.state;
       if (errors.indexOf('Missing field!') === -1 || 
           errors.indexOf('User does not exist!') === -1 ||
