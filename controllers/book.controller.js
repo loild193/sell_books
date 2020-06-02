@@ -1,9 +1,8 @@
 const Book = require('../models/book.model');
 
-module.exports.index = function(req, res) {
-  // const books = Book.find();
-
-  // return res.send({
-  //   books
-  // });
+module.exports.index = async function(req, res) {
+  const books = await Book.find({});
+  return res.send({
+    books
+  });
 }
