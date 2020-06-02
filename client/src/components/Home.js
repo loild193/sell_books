@@ -5,7 +5,7 @@ class Home extends Component {
 
   componentDidMount(){
     const token = sessionStorage.getItem('token');
-    axios.get('http://localhost:9000/', { headers: {"Authorization" : `Bearer ${token}`} })
+    axios.get('http://localhost:8000/', { headers: {"Authorization" : `Bearer ${token}`} })
       .then((res) => {
         console.log(res);
       })

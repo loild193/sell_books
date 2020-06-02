@@ -24,7 +24,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:9000')
+    axios.get('http://localhost:8000')
       .then((res) => {
         if (res.data.message)
           this.setState({
